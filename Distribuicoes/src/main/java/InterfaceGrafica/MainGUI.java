@@ -30,6 +30,13 @@ public class MainGUI extends javax.swing.JFrame {
                 new JF_Uniforme().setVisible(true);
             }
         });
+        
+        b_dTriangular.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new JF_Triangular().setVisible(true);
+            }
+        });
     }
 
     /**

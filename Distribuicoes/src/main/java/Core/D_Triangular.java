@@ -9,6 +9,25 @@ package Core;
  *
  * @author marco
  */
-public class D_Triangular {
+public class D_Triangular implements Calculo{
     
+    public static D_Triangular getD_Triangular(){
+        return new D_Triangular();
+    }
+    
+    public double gerarNumero(double min, double max, double moda){
+        GNA gna = GNA.getGNA();
+        double num = gna.gerarNumero();
+        
+        if((moda-min)/(max-min)>num){
+            return min + Math.sqrt(num*(moda-min)*(max-min));
+        }else{
+            return max - Math.sqrt((1-num)*(max-moda)*(max-min));
+        }
+    }
+
+    @Override
+    public double gerarNumero(double a, double b, double c, double d) {
+        return gerarNumero(a, b, c);
+    }
 }

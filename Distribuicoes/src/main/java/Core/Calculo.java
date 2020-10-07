@@ -9,8 +9,6 @@ package Core;
  *
  * @author marco
  */
-public class D_Exponencial {
-    public static D_Exponencial getD_Exponencial(){
-        return new D_Exponencial();
-    }
+public interface Calculo {
+    double gerarNumero(double a, double b, double c, double d);
 }

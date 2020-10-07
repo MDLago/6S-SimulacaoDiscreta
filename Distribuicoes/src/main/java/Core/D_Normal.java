@@ -10,5 +10,7 @@ package Core;
  * @author marco
  */
 public class D_Normal {
-    
+    public static D_Normal getD_Normal(){
+        return new D_Normal();
+    }
 }

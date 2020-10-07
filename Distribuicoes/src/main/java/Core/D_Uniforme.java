@@ -9,10 +9,20 @@ package Core;
  *
  * @author marco
  */
-public class D_Uniforme{
+public class D_Uniforme implements Calculo{
+    
+    public static D_Uniforme getD_Uniforme(){
+        return new D_Uniforme();
+    }
+    
     public double gerarNumero(double valorA, double valorB){
         GNA gna = GNA.getGNA();
         
         return valorA + (valorB - valorA)*gna.gerarNumero();
+    }
+
+    @Override
+    public double gerarNumero(double a, double b, double c, double d) {
+        return gerarNumero(a, b);
     }
 }
