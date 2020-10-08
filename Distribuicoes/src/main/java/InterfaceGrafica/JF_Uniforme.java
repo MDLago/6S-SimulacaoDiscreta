@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -35,21 +34,16 @@ public class JF_Uniforme extends javax.swing.JFrame {
         
     }
     
-    public void inicializar(){
+    private void inicializar(){
         btnEscolher.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
-                fc.setDialogTitle("Selecionar Arquivo");
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos de Texto", "txt");
-                fc.setFileFilter(filter);
+                JFileChooser fc = Utils.getJFC_TXT();
                 
-                //exibe e marca ação
                 int retorno = fc.showOpenDialog(fc);
-                //Verifica o retorno da ação e caso seja "abrir" seleciona o arquivo
-                //depois de selecionar ele envia para a classe principal
                 if (retorno == JFileChooser.APPROVE_OPTION) {
                     File arquivo = fc.getSelectedFile();
+                    arquivo = Arquivo.adicionarExtensao(arquivo, Arquivo.EXT.TXT);
                     localArquivo.setText(arquivo.getAbsolutePath());
                     path = arquivo.toPath();
                 }
@@ -59,9 +53,9 @@ public class JF_Uniforme extends javax.swing.JFrame {
         btnGerar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double minimo = Double.valueOf(valorMinimo.getText());
-                double maximo = Double.valueOf(valorMaximo.getText());
-                int qtd = Integer.valueOf(qtdNumeros.getText());
+                double minimo = Utils.valorJTF_Double(valorMinimo);
+                double maximo = Utils.valorJTF_Double(valorMaximo);
+                int qtd = Utils.valorJTF_Int(qtdNumeros);
                 
                 Arquivo arq = new Arquivo();
                 

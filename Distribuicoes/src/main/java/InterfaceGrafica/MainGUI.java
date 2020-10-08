@@ -37,6 +37,20 @@ public class MainGUI extends javax.swing.JFrame {
                 new JF_Triangular().setVisible(true);
             }
         });
+        
+        b_dExponencial.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new JF_Exponencial().setVisible(true);
+            }
+        });
+        
+        b_dNormal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new JF_Normal().setVisible(true);
+            }
+        });
     }
 
     /**

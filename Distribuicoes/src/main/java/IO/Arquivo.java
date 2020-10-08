@@ -18,6 +18,25 @@ import java.nio.file.Path;
 public class Arquivo {
     File file;
     
+    public enum EXT{
+        TXT (".txt");
+        
+        private final String name;
+        
+        private EXT(String s){
+            name = s;
+        }
+        
+        public boolean isEquals(String ext){
+            return name.equals(ext);
+        }
+        
+        @Override
+        public String toString(){
+            return this.name;
+        }
+    }
+    
     public void criarArquivo(Path path) throws IOException{
         file = new File(path.toUri());
         file.createNewFile();
@@ -30,6 +49,14 @@ public class Arquivo {
         bIO.write(String.valueOf(valor));
         bIO.newLine();
         bIO.close();
+    }
+    
+    public static File adicionarExtensao(File file, EXT ext){
+        if(!file.getAbsolutePath().endsWith(ext.toString())){
+            return new File(file+ext.toString());
+        }else{
+            return file;
+        }
     }
     
     

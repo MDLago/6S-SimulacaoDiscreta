@@ -22,12 +22,12 @@ import javax.swing.JOptionPane;
  *
  * @author marco
  */
-public class JF_Triangular extends javax.swing.JFrame {
+public class JF_Normal extends javax.swing.JFrame {
     Path path;
     /**
      * Creates new form JF_Uniforme
      */
-    public JF_Triangular() {
+    public JF_Normal() {
         
         initComponents();
         inicializar();
@@ -53,10 +53,9 @@ public class JF_Triangular extends javax.swing.JFrame {
         btnGerar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double minimo = Utils.valorJTF_Double(valorMinimo);
-                double maximo = Utils.valorJTF_Double(valorMaximo);
-                double moda = Utils.valorJTF_Double(valorModa);
-                int qtd = Utils.valorJTF_Int(qtdNumeros);
+                double minimo = Double.valueOf(valorMinimo.getText());
+                double maximo = Double.valueOf(valorMaximo.getText());
+                int qtd = Integer.valueOf(qtdNumeros.getText());
                 
                 Arquivo arq = new Arquivo();
                 
@@ -65,13 +64,13 @@ public class JF_Triangular extends javax.swing.JFrame {
                     Calculo calc = D_Triangular.getD_Triangular();
                     
                     for (int i = 0; i < qtd; i++) {
-                        double num = calc.gerarNumero(minimo, maximo,moda,0);
+                        double num = calc.gerarNumero(minimo, maximo,0,0);
                         arq.escreverArquivo(num);
                     }
                     
                     JOptionPane.showMessageDialog(null, "Concluido");
                 } catch (IOException ex) {
-                    Logger.getLogger(JF_Triangular.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(JF_Normal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -99,11 +98,9 @@ public class JF_Triangular extends javax.swing.JFrame {
         localArquivo = new javax.swing.JTextField();
         btnEscolher = new javax.swing.JButton();
         btnGerar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        valorModa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Distribuição Triangular");
+        setTitle("Distribuição Normal");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(350, 400));
         setResizable(false);
@@ -157,45 +154,33 @@ public class JF_Triangular extends javax.swing.JFrame {
         btnGerar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnGerar.setText("Gerar");
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel6.setText("Moda:");
-
-        valorModa.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        valorModa.setMaximumSize(new java.awt.Dimension(100, 20));
-        valorModa.setMinimumSize(new java.awt.Dimension(100, 20));
-        valorModa.setName(""); // NOI18N
-        valorModa.setPreferredSize(new java.awt.Dimension(100, 20));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(localArquivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(localArquivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(qtdNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnGerar)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(qtdNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnGerar)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(75, 75, 75)
-                                .addComponent(btnEscolher)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))
-                            .addGap(27, 27, 27)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(valorMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(valorMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(valorModa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel6))
+                            .addComponent(jLabel5)
+                            .addGap(75, 75, 75)
+                            .addComponent(btnEscolher)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(valorMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(valorMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -211,11 +196,7 @@ public class JF_Triangular extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(valorMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(valorModa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -257,21 +238,27 @@ public class JF_Triangular extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JF_Triangular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JF_Normal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JF_Triangular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JF_Normal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JF_Triangular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JF_Normal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JF_Triangular.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JF_Normal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JF_Triangular().setVisible(true);
+                new JF_Normal().setVisible(true);
             }
         });
     }
@@ -284,12 +271,10 @@ public class JF_Triangular extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField localArquivo;
     private javax.swing.JTextField qtdNumeros;
     private javax.swing.JTextField valorMaximo;
     private javax.swing.JTextField valorMinimo;
-    private javax.swing.JTextField valorModa;
     // End of variables declaration//GEN-END:variables
 }
