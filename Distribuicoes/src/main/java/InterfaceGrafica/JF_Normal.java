@@ -6,7 +6,7 @@
 package InterfaceGrafica;
 
 import Core.Calculo;
-import Core.D_Triangular;
+import Core.D_Normal;
 import IO.Arquivo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,18 +53,18 @@ public class JF_Normal extends javax.swing.JFrame {
         btnGerar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double minimo = Double.valueOf(valorMinimo.getText());
-                double maximo = Double.valueOf(valorMaximo.getText());
-                int qtd = Integer.valueOf(qtdNumeros.getText());
+                double media = Utils.valorJTF_Double(valorMedia);
+                double desvio = Utils.valorJTF_Double(valorDesvio);
+                int qtd = Utils.valorJTF_Int(qtdNumeros);
                 
                 Arquivo arq = new Arquivo();
                 
                 try {
                     arq.criarArquivo(path);
-                    Calculo calc = D_Triangular.getD_Triangular();
+                    Calculo calc = D_Normal.getD_Normal();
                     
                     for (int i = 0; i < qtd; i++) {
-                        double num = calc.gerarNumero(minimo, maximo,0,0);
+                        double num = calc.gerarNumero(media, desvio,0,0);
                         arq.escreverArquivo(num);
                     }
                     
@@ -90,8 +90,8 @@ public class JF_Normal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        valorMinimo = new javax.swing.JTextField();
-        valorMaximo = new javax.swing.JTextField();
+        valorMedia = new javax.swing.JTextField();
+        valorDesvio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         qtdNumeros = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -109,21 +109,21 @@ public class JF_Normal extends javax.swing.JFrame {
         jLabel1.setText("Parametros");
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel2.setText("Minimo: ");
+        jLabel2.setText("Média:");
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel3.setText("Maximo: ");
+        jLabel3.setText("Desvio:");
 
-        valorMinimo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        valorMinimo.setMinimumSize(new java.awt.Dimension(100, 20));
-        valorMinimo.setName(""); // NOI18N
-        valorMinimo.setPreferredSize(new java.awt.Dimension(100, 20));
+        valorMedia.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        valorMedia.setMinimumSize(new java.awt.Dimension(100, 20));
+        valorMedia.setName(""); // NOI18N
+        valorMedia.setPreferredSize(new java.awt.Dimension(100, 20));
 
-        valorMaximo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        valorMaximo.setMaximumSize(new java.awt.Dimension(100, 20));
-        valorMaximo.setMinimumSize(new java.awt.Dimension(100, 20));
-        valorMaximo.setName(""); // NOI18N
-        valorMaximo.setPreferredSize(new java.awt.Dimension(100, 20));
+        valorDesvio.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        valorDesvio.setMaximumSize(new java.awt.Dimension(100, 20));
+        valorDesvio.setMinimumSize(new java.awt.Dimension(100, 20));
+        valorDesvio.setName(""); // NOI18N
+        valorDesvio.setPreferredSize(new java.awt.Dimension(100, 20));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel4.setText("Quantidade de números: ");
@@ -179,8 +179,8 @@ public class JF_Normal extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(valorMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(valorMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(valorDesvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(valorMedia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -191,11 +191,11 @@ public class JF_Normal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(valorMinimo, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                    .addComponent(valorMedia, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(valorMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(valorDesvio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -274,7 +274,7 @@ public class JF_Normal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField localArquivo;
     private javax.swing.JTextField qtdNumeros;
-    private javax.swing.JTextField valorMaximo;
-    private javax.swing.JTextField valorMinimo;
+    private javax.swing.JTextField valorDesvio;
+    private javax.swing.JTextField valorMedia;
     // End of variables declaration//GEN-END:variables
 }

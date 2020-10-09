@@ -10,12 +10,31 @@ package Core;
  * @author marco
  */
 public class D_Normal implements Calculo{
+    GNA gna;
+    
+    public D_Normal(){
+        gna = new GNA();
+    }
+    
     public static D_Normal getD_Normal() {
         return new D_Normal();
+    }
+    
+    private double calcularZ(){
+        double num1 = gna.gerarNumero();
+        double num2 = gna.gerarNumero();
+        
+       return Math.sqrt(Math.abs((-2)*Math.log(num1)))
+               * Math.sin((2*Math.PI)*num2);
+    }
+    
+    public double gerarNumero(double media, double desvio){
+        return media + (desvio * calcularZ());
+
     }
 
     @Override
     public double gerarNumero(double a, double b, double c, double d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return gerarNumero(a, b);
     }
 }
