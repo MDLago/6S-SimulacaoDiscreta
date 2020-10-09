@@ -38,7 +38,7 @@ public abstract class Utils {
     public static JFileChooser getJFC_TXT(){
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle("Selecionar Arquivo");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos de Texto", "*.txt");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos de Texto", "txt");
         fc.setFileFilter(filter);
         
         return fc;
