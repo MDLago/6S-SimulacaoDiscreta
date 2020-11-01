@@ -6,7 +6,7 @@
 
 package Estatisticas;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,11 +18,13 @@ public class DadosRelatorio {
     private final List tempoEntidadeFila;
     private final List tempoEntidadeSistema;
     private int contadorEntidade;
+    private final List maximoEntidadeSimultaneaSistema;
 
     public DadosRelatorio(){
-        filaEntidade = new ArrayList();
-        tempoEntidadeFila = new ArrayList();
-        tempoEntidadeSistema = new ArrayList();
+        filaEntidade = new LinkedList();
+        tempoEntidadeFila = new LinkedList();
+        tempoEntidadeSistema = new LinkedList();
+        maximoEntidadeSimultaneaSistema = new LinkedList();
         contadorEntidade = 0;
     }
     
@@ -38,14 +40,19 @@ public class DadosRelatorio {
         tempoEntidadeSistema.add(valor);
     }
     
+    public void addMaximoEntidadeSimultaneaSistema(int valor){
+        maximoEntidadeSimultaneaSistema.add(valor);
+    }
+    
     public void addContatorEntidade(){
         contadorEntidade++;
     }
     
-    public void addDados (int filaEntidade, int tempoEntidadeFila, int tempoEntidadeSistema){
+    public void addDados (int filaEntidade, int tempoEntidadeFila, int tempoEntidadeSistema, int maximoEntidadeSimultaneaSistema){
         addEntidade(filaEntidade);
         addTempoEntidadeFila(tempoEntidadeFila);
         addTempoEntidadeSistema(tempoEntidadeSistema);
+        addMaximoEntidadeSimultaneaSistema(maximoEntidadeSimultaneaSistema);
         addContatorEntidade();
     }
 }

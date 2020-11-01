@@ -5,8 +5,8 @@
  */
 package InterfaceGrafica;
 
-import Core.Calculo;
-import Core.D_Uniforme;
+import FuncoesDistribuicoes.Calculo;
+import FuncoesDistribuicoes.D_Uniforme;
 import IO.Arquivo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
