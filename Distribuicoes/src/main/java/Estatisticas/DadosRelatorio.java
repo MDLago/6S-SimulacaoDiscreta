@@ -14,10 +14,12 @@ import java.util.List;
  * @author marco
  */
 public class DadosRelatorio {
+    
+    private int contadorEntidade;
+    
     private final List filaEntidade;
     private final List tempoEntidadeFila;
     private final List tempoEntidadeSistema;
-    private int contadorEntidade;
     private final List maximoEntidadeSimultaneaSistema;
 
     public DadosRelatorio(){
@@ -31,6 +33,7 @@ public class DadosRelatorio {
     public void addEntidade(int valor){
         filaEntidade.add(valor);
     }
+    
     
     public void addTempoEntidadeFila(int valor){
         tempoEntidadeFila.add(valor);
