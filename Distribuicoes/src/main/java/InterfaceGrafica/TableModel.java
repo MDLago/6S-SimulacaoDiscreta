@@ -5,6 +5,7 @@
  */
 package InterfaceGrafica;
 
+import Core.Sistema;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -13,21 +14,40 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TableModel extends AbstractTableModel{
     
-    private final String[] colunas = {"Entidade","Relogio","TEC","TS","Tempo Inicio Servico","Tempo Entidade Fila","Tempo Final Servico","Tempo Entidade Sistema","Tempo Livre Recurso"};
+    private final String[] colunas = {"Tempo","Entidade Entraram","Tamanho Fila","Recurso Livre","Tempo Atendimento","Entidades Sairam", "Max Entidades no Sistema"};
+    private final Sistema sistema;
+
+    public TableModel(Sistema sistema) {
+        this.sistema = sistema;
+    }
 
     @Override
     public int getRowCount() {
-        
+       return sistema.getTempo();
     }
 
     @Override
     public int getColumnCount() {
         return colunas.length;
     }
+    
+    @Override
+    public String getColumnName(int column) {
+        return colunas[column]; 
+    }
 
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getValueAt(int linha, int coluna) {
+        switch(coluna){
+            case 0: return sistema.getTempo();
+            case 1: return sistema.getEntidadeEntraram();
+            case 2: return sistema.getQtdFila().size();
+            case 3: return sistema.rec.isRecursoLivre();
+            case 4: return sistema.rec.getContador();
+            case 5: return sistema.getEntidadeSairam();
+            case 6: return sistema.getQtdMaximoEntidadeDentro();
+        }
+        return null;
     }
     
 }

@@ -10,20 +10,23 @@ package Core;
  * @author marco
  */
 public class Entidade {
-    private final int id;
     protected final int tempoChegada;
+    private int tempoFila = 0;
 
-    public Entidade(int id, int tempoChegada) {
-        this.id=id;
+    public Entidade(int tempoChegada) {
         this.tempoChegada=tempoChegada;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getTempoChegada() {
         return tempoChegada;
+    }
+    
+    public int getTempoFila(){
+        return tempoFila;
+    }
+    
+    public void ficouNaFila(){
+        tempoFila++;
     }
     
 }

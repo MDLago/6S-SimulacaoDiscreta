@@ -62,10 +62,10 @@ public class JF_Triangular extends javax.swing.JFrame {
                 
                 try {
                     arq.criarArquivo(path);
-                    Calculo calc = D_Triangular.getD_Triangular();
+                    Calculo calc = D_Triangular.getD_Triangular(minimo, maximo,moda,0);
                     
                     for (int i = 0; i < qtd; i++) {
-                        double num = calc.gerarNumero(minimo, maximo,moda,0);
+                        double num = calc.gerarNumero();
                         arq.escreverArquivo(num);
                     }
                     

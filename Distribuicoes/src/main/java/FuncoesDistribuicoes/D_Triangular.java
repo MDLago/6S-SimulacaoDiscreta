@@ -9,14 +9,17 @@ package FuncoesDistribuicoes;
  *
  * @author marco
  */
-public class D_Triangular implements Calculo{
+public class D_Triangular extends Calculo{
     
-    public static D_Triangular getD_Triangular(){
-        return new D_Triangular();
+    public static D_Triangular getD_Triangular(double a, double b, double c, double d){
+        return new D_Triangular(a, b, c, d);
+    }
+
+    public D_Triangular(double a, double b, double c, double d) {
+        super(a, b, c, d);
     }
     
     public double gerarNumero(double min, double max, double moda){
-        GNA gna = GNA.getGNA();
         double num = gna.gerarNumero();
         
         if((moda-min)/(max-min)>num){
@@ -27,7 +30,8 @@ public class D_Triangular implements Calculo{
     }
 
     @Override
-    public double gerarNumero(double a, double b, double c, double d) {
+    public double gerarNumero() {
         return gerarNumero(a, b, c);
     }
+
 }

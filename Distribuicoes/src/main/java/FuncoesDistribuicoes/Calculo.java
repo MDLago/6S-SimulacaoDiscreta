@@ -9,6 +9,17 @@ package FuncoesDistribuicoes;
  *
  * @author marco
  */
-public interface Calculo {
-    double gerarNumero(double a, double b, double c, double d);
+public abstract class Calculo {
+    public final double a, b, c, d;
+    
+    public GNA gna = new GNA();
+
+    public Calculo(double a, double b, double c, double d) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+        this.d = d;
+    }
+    
+    public abstract double gerarNumero();
 }

@@ -61,10 +61,10 @@ public class JF_Normal extends javax.swing.JFrame {
                 
                 try {
                     arq.criarArquivo(path);
-                    Calculo calc = D_Normal.getD_Normal();
+                    Calculo calc = D_Normal.getD_Normal(media, desvio,0,0);
                     
                     for (int i = 0; i < qtd; i++) {
-                        double num = calc.gerarNumero(media, desvio,0,0);
+                        double num = calc.gerarNumero();
                         arq.escreverArquivo(num);
                     }
                     

@@ -61,10 +61,10 @@ public class JF_Uniforme extends javax.swing.JFrame {
                 
                 try {
                     arq.criarArquivo(path);
-                    Calculo calc = D_Uniforme.getD_Uniforme();
+                    Calculo calc = D_Uniforme.getD_Uniforme(minimo, maximo,0,0);
                     
                     for (int i = 0; i < qtd; i++) {
-                        double num = calc.gerarNumero(minimo, maximo,0,0);
+                        double num = calc.gerarNumero();
                         arq.escreverArquivo(num);
                     }
                     

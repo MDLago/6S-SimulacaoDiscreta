@@ -71,10 +71,10 @@ public class JF_Exponencial extends javax.swing.JFrame {
                 
                 try {
                     arq.criarArquivo(path);
-                    Calculo calc = D_Exponencial.getD_Exponencial();
+                    Calculo calc = D_Exponencial.getD_Exponencial(media, offset,offsetON,0);
                     
                     for (int i = 0; i < qtd; i++) {
-                        double num = calc.gerarNumero(media, offset,offsetON,0);
+                        double num = calc.gerarNumero();
                         arq.escreverArquivo(num);
                     }
                     

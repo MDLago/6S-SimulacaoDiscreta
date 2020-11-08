@@ -5,105 +5,185 @@
  */
 package Core;
 
-import FuncoesDistribuicoes.C_Diversos;
 import FuncoesDistribuicoes.Calculo;
-import FuncoesDistribuicoes.D_Exponencial;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
  * @author marco
  */
 public class Sistema {
-    protected final int tempoMaximo;
-    private int entidadesSistema;
-    private boolean primeiraLinha = true;
     
-    private Entidade entidadade;
-    private Recurso recurso;
+    private int tempo = 0;
+    private final int tempoMaximo;
+    private int entidadeEntraram = 0;
+    private int entidadeSairam = 0;
+    private int qtdMaximoEntidadeDentro = 0;
     
-    protected LinkedList<Integer> tec;
-    protected LinkedList<Integer> ts;
-    protected LinkedList<Integer> relogio;
-    protected LinkedList<Integer> fila;
+    private Calculo cTEC;
+    private Calculo cTS;
+    private int tec;
+    private int ts;
+    private int tempoUltimaEntidadeCriada = 0;
     
+    private LinkedList<Entidade> fila = new LinkedList<>();
+    private Entidade ent;
+    public Recurso rec = new Recurso();
     
-    protected LinkedList<Integer> tempoInicioServico;
-    protected LinkedList<Integer> tempoFila;
-    protected LinkedList<Integer> tempoFinal;
-    protected LinkedList<Integer> tempoSistema;
-    protected LinkedList<Integer> tempoLivreRecurso;
+    private LinkedList<Integer> qtdFila = new LinkedList<>();
+    private LinkedList<Integer> qtdTempoRecursoLivre = new LinkedList<>();
+    private LinkedList<Integer> qtdTempoFila = new LinkedList<>();
+    private LinkedList<Integer> qtdTempoSistema = new LinkedList<>();
 
-    public Sistema(int tempoMaximo) {
-        this.tempoMaximo = tempoMaximo;
-        this.entidadesSistema = 0;
-        
-        
-        tec = new LinkedList();
-        ts = new LinkedList();
-        relogio = new LinkedList();
-        
-        fila = new LinkedList();
-        
-        tempoInicioServico = new LinkedList();
-        tempoFila = new LinkedList();
-        tempoFinal = new LinkedList();
-        tempoSistema = new LinkedList();
-        tempoLivreRecurso = new LinkedList();
+    public Sistema(int tempoMaximo, Calculo ts, Calculo tec) {
+          this.tempoMaximo = tempoMaximo;
+          this.cTS = ts;
+          this.cTEC = tec;
+          
+          setValores(cTS.gerarNumero(), cTEC.gerarNumero());
     }
     
-    public void setEntidade(Entidade entidade){
-        this.entidadade = entidade;
+    ///////////////////////////////////////
+    private void adicionarEntidade(){
+        ent = new Entidade(tec);
+        setValores(cTS.gerarNumero(), cTEC.gerarNumero());
+        addEntidadeEntraram();
+        fila.add(ent);
     }
     
-    public void setRecurso(Recurso recurso){
-        this.recurso=recurso;
+    public void criarEntidade(){
+        if(tempo == tempoUltimaEntidadeCriada + tec){
+            adicionarEntidade();
+            tempoUltimaEntidadeCriada = tempo;
+        }
     }
+    ////////////////////////////////////
+    
+    private void addTempoFila(){
+        if(fila.isEmpty()){
+            for (Entidade entidade : fila) {
+                entidade.ficouNaFila();
+            }
+        }
+    }
+    public void addtempo(){
+        tempo++;
+    } 
+    
+    ///////////////////////////////////
+    
+    private void verificarFila(){
+        qtdFila.add(fila.size());
+    }
+    
+    private void verificarQtdDentro(){
+        
+        int valor = entidadeEntraram - entidadeSairam;
+        if(qtdMaximoEntidadeDentro < valor){
+            qtdMaximoEntidadeDentro = valor;
+        }
+    }
+    
+    ////////////////////////////////////
+    
+    private void atenderProximaEntidade(){
+        if(fila.isEmpty()){
+            rec.setLivre();
+            qtdTempoRecursoLivre.add(1);
+        }else{
+            Entidade ent = fila.getFirst();
+            qtdTempoFila.add(ent.getTempoFila());
+            qtdTempoSistema.add(ent.getTempoChegada() + ent.getTempoFila() + ts);
+            fila.removeFirst();
+            rec.setTS(ts);
+        }
+        
+     }
+    
+    private void atendimentoEntidadeAtual(){
+        if(rec.isRecursoLivre() || rec.getContador() == 0){
+            atenderProximaEntidade();
+        }else{
+            rec.atendimento();
+        }
+        
+        if(rec.isTerminouAtendimento()){
+            addEntidadeSairam();
+            rec.setTerminouAtendimento();
+        }
+    }
+    //////////////////////////////////
+    private void setTS(double ts){
+        this.ts = (int) Math.round(ts);
+    }
+    private void setTEC(double tec){
+        this.tec = (int) Math.round(tec);
+    }
+    
+    public void setValores(double ts, double tec){
+        setTEC(tec);
+        setTS(ts);
+    }
+    
+    /////////////////////////////////
+    
+    public int getTempo(){
+        return tempo;
+    }
+    
+    public int getTempoMaximo(){
+        return tempoMaximo;
+    }
+
+    public int getEntidadeEntraram() {
+        return entidadeEntraram;
+    }
+
+    public int getEntidadeSairam() {
+        return entidadeSairam;
+    }
+
+    public int getQtdMaximoEntidadeDentro() {
+        return qtdMaximoEntidadeDentro;
+    }
+
+    public LinkedList<Integer> getQtdFila() {
+        return qtdFila;
+    }
+
+    public LinkedList<Integer> getQtdTempoFila() {
+        return qtdTempoFila;
+    }
+
+    public LinkedList<Integer> getQtdTempoRecursoLivre() {
+        return qtdTempoRecursoLivre;
+    }
+
+    public LinkedList<Integer> getQtdTempoSistema() {
+        return qtdTempoSistema;
+    }
+    
+    
+    /////////////////////////////////
     
     public void executar(){
         
-        tec.add
-            (entidadade.getTempoChegada());
         
-        ts.add
-            (recurso.getTempoServico());
+        criarEntidade();
+        atendimentoEntidadeAtual();
+        addTempoFila();
+        verificarFila();
+        verificarQtdDentro();
         
-        if(primeiraLinha){
-            relogio.add
-                (entidadade.getTempoChegada());
-            
-            tempoInicioServico.add
-                (relogio.getLast());
-             
-            tempoLivreRecurso.add
-                (relogio.getLast());
-            
-            primeiraLinha = false;
-        }else{
-            relogio.add
-                (relogio.getLast() + entidadade.getTempoChegada());
-            
-            tempoInicioServico.add
-                (C_Diversos.maiorValor
-                    (tempoFila.getLast(), relogio.getLast())
-            );
-            
-            tempoLivreRecurso.add
-                (tempoInicioServico.getLast() - tempoFinal.getLast());
-        }
-        
-        tempoFila.add
-                (tempoInicioServico.getLast() - relogio.getLast());
- 
-        tempoFinal.add
-            (ts.getLast() + tempoInicioServico.getLast());
-        
-        tempoSistema.add
-            (ts.getLast() + tempoFila.getLast());
-        
-        
-        
+        addtempo();
     }
     
+    ///////////////////////////////////////
+    private void addEntidadeEntraram(){
+        entidadeEntraram++;
+    }
+    
+    private void addEntidadeSairam(){
+        entidadeSairam++;
+    }
 }

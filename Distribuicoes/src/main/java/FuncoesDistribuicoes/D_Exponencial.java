@@ -9,9 +9,13 @@ package FuncoesDistribuicoes;
  *
  * @author marco
  */
-public class D_Exponencial implements Calculo{
-    public static D_Exponencial getD_Exponencial(){
-        return new D_Exponencial();
+public class D_Exponencial extends Calculo{
+    public static D_Exponencial getD_Exponencial(double a, double b, double c, double d){
+        return new D_Exponencial(a, b, c, d);
+    }
+
+    public D_Exponencial(double a, double b, double c, double d) {
+        super(a, b, c, d);
     }
     
     private double calcularAlpha(double media, double offset){
@@ -19,7 +23,6 @@ public class D_Exponencial implements Calculo{
     }
     
     public double gerarNumeroSemOffset(double media){
-        GNA gna = GNA.getGNA();
         double num = gna.gerarNumero();
         
         return -(media)*Math.log(num);
@@ -27,14 +30,13 @@ public class D_Exponencial implements Calculo{
     }
     
     public double gerarNumeroComOffset(double media, double offset){
-        GNA gna = GNA.getGNA();
         double num = gna.gerarNumero();
         
         return offset - (1/calcularAlpha(media, offset)) * Math.log(num);
     }
 
     @Override
-    public double gerarNumero(double a, double b, double c, double d) {
+    public double gerarNumero() {
         
         if(c == 1){
             return gerarNumeroComOffset(a, b);
