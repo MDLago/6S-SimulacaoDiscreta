@@ -7,23 +7,15 @@ package InterfaceGrafica;
 
 import FuncoesDistribuicoes.Calculo;
 import FuncoesDistribuicoes.D_Normal;
-import IO.Arquivo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author marco
  */
 public class JF_Normal extends javax.swing.JFrame {
-    Path path;
+    Calculo calc;
     /**
      * Creates new form JF_Uniforme
      */
@@ -35,43 +27,23 @@ public class JF_Normal extends javax.swing.JFrame {
     }
     
     private void inicializar(){
-        btnEscolher.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = Utils.getJFC_TXT();
-                
-                int retorno = fc.showOpenDialog(fc);
-                if (retorno == JFileChooser.APPROVE_OPTION) {
-                    File arquivo = fc.getSelectedFile();
-                    arquivo = Arquivo.adicionarExtensao(arquivo, Arquivo.EXT.TXT);
-                    localArquivo.setText(arquivo.getAbsolutePath());
-                    path = arquivo.toPath();
-                }
-            }
-        });
         
-        btnGerar.addActionListener(new ActionListener() {
+        b_OK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 double media = Utils.valorJTF_Double(valorMedia);
                 double desvio = Utils.valorJTF_Double(valorDesvio);
-                int qtd = Utils.valorJTF_Int(qtdNumeros);
                 
-                Arquivo arq = new Arquivo();
-                
-                try {
-                    arq.criarArquivo(path);
-                    Calculo calc = D_Normal.getD_Normal(media, desvio,0,0);
-                    
-                    for (int i = 0; i < qtd; i++) {
-                        double num = calc.gerarNumero();
-                        arq.escreverArquivo(num);
-                    }
-                    
-                    JOptionPane.showMessageDialog(null, "Concluido");
-                } catch (IOException ex) {
-                    Logger.getLogger(JF_Normal.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
+                calc = D_Normal.getD_Normal(media, desvio,0,0);
+                setVisible(false);
+            }
+        });
+        
+        b_Cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
             }
         });
         
@@ -92,18 +64,18 @@ public class JF_Normal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         valorMedia = new javax.swing.JTextField();
         valorDesvio = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        qtdNumeros = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        localArquivo = new javax.swing.JTextField();
-        btnEscolher = new javax.swing.JButton();
-        btnGerar = new javax.swing.JButton();
+        b_Cancel = new javax.swing.JButton();
+        b_OK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Distribuição Normal");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(350, 400));
         setResizable(false);
+
+        jPanel1.setMaximumSize(new java.awt.Dimension(345, 191));
+        jPanel1.setMinimumSize(new java.awt.Dimension(345, 191));
+        jPanel1.setPreferredSize(new java.awt.Dimension(345, 191));
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel1.setText("Parametros");
@@ -125,34 +97,18 @@ public class JF_Normal extends javax.swing.JFrame {
         valorDesvio.setName(""); // NOI18N
         valorDesvio.setPreferredSize(new java.awt.Dimension(100, 20));
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel4.setText("Quantidade de números: ");
+        b_Cancel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        b_Cancel.setText("Cancelar");
+        b_Cancel.setMaximumSize(new java.awt.Dimension(100, 25));
+        b_Cancel.setMinimumSize(new java.awt.Dimension(100, 25));
+        b_Cancel.setPreferredSize(new java.awt.Dimension(100, 25));
 
-        qtdNumeros.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        qtdNumeros.setMaximumSize(new java.awt.Dimension(100, 20));
-        qtdNumeros.setMinimumSize(new java.awt.Dimension(100, 20));
-        qtdNumeros.setName(""); // NOI18N
-        qtdNumeros.setPreferredSize(new java.awt.Dimension(100, 20));
-
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel5.setText("Local do arquivo: ");
-
-        localArquivo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        localArquivo.setMaximumSize(new java.awt.Dimension(100, 20));
-        localArquivo.setMinimumSize(new java.awt.Dimension(100, 20));
-        localArquivo.setName(""); // NOI18N
-        localArquivo.setPreferredSize(new java.awt.Dimension(100, 20));
-
-        btnEscolher.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnEscolher.setText("Escolher");
-        btnEscolher.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEscolherMouseClicked(evt);
-            }
-        });
-
-        btnGerar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnGerar.setText("Gerar");
+        b_OK.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        b_OK.setText("OK");
+        b_OK.setMaximumSize(new java.awt.Dimension(75, 25));
+        b_OK.setMinimumSize(new java.awt.Dimension(75, 25));
+        b_OK.setName(""); // NOI18N
+        b_OK.setPreferredSize(new java.awt.Dimension(75, 25));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,19 +116,8 @@ public class JF_Normal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(localArquivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(qtdNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnGerar)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(75, 75, 75)
-                            .addComponent(btnEscolher)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -181,7 +126,13 @@ public class JF_Normal extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(valorDesvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(valorMedia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(b_OK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(b_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,30 +147,17 @@ public class JF_Normal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(valorDesvio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(qtdNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel5))
-                    .addComponent(btnEscolher))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(localArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGerar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(b_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b_OK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnEscolherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEscolherMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEscolherMouseClicked
 
     /**
      * @param args the command line arguments
@@ -264,16 +202,12 @@ public class JF_Normal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEscolher;
-    private javax.swing.JButton btnGerar;
+    private javax.swing.JButton b_Cancel;
+    private javax.swing.JButton b_OK;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField localArquivo;
-    private javax.swing.JTextField qtdNumeros;
     private javax.swing.JTextField valorDesvio;
     private javax.swing.JTextField valorMedia;
     // End of variables declaration//GEN-END:variables

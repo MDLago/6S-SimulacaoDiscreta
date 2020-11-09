@@ -5,11 +5,8 @@
  */
 package InterfaceGrafica;
 
-import Core.Entidade;
-import Core.Recurso;
 import Core.Sistema;
 import FuncoesDistribuicoes.Calculo;
-import FuncoesDistribuicoes.D_Triangular;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -18,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author marco
  */
-public class Teste1 extends javax.swing.JFrame {
+public class Simulacao extends javax.swing.JFrame {
 
     private Calculo calculoTEC;
     private Calculo calculoTS;
@@ -29,16 +26,20 @@ public class Teste1 extends javax.swing.JFrame {
     /**
      * Creates new form Teste1
      */
-    public Teste1() {
+    public Simulacao() {
         initComponents();
         
-        calculoTEC = D_Triangular.getD_Triangular(8, 14, 10, 0);
-        calculoTS = D_Triangular.getD_Triangular(7, 10, 8, 0);
+    }
+    
+    public Simulacao(Calculo ts, Calculo tec, int tempoMaximo){
+        initComponents();
         
-        sistema = new Sistema(300,calculoTS,calculoTEC);
-       
+        this.calculoTS = ts;
+        this.calculoTEC = tec;
+        
+        sistema = new Sistema(tempoMaximo, calculoTS, calculoTEC);
+        
         inicializar();
-        
     }
     
     public void inicializar(){
@@ -138,30 +139,64 @@ public class Teste1 extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         b_proximaEnt = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        tf_tempo.setEditable(false);
+        tf_tempo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tf_tempo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tf_tempo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_tempoActionPerformed(evt);
             }
         });
 
+        tf_tamFila.setEditable(false);
+        tf_tamFila.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tf_tamFila.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        tf_recLivre.setEditable(false);
+        tf_recLivre.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tf_recLivre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        tf_tempoRestRec.setEditable(false);
+        tf_tempoRestRec.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tf_tempoRestRec.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        tf_qtdEntDentro.setEditable(false);
+        tf_qtdEntDentro.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tf_qtdEntDentro.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        tf_qtdEntFora.setEditable(false);
+        tf_qtdEntFora.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tf_qtdEntFora.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        tf_qtdMaxEntSis.setEditable(false);
+        tf_qtdMaxEntSis.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tf_qtdMaxEntSis.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
         b_proximo.setText("Proximo tempo");
 
         b_fim.setText("Ultimo Tempo");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Tempo");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Qtd Entidades entraram");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Tamanho da Fila");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Recurso Livre?");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Tempo restante recurso");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Qtd Entidades sairam");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Qtd Max Entidades no Sistema");
 
         b_proximaEnt.setText("Proxima Entidade");
@@ -191,41 +226,42 @@ public class Teste1 extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(tf_tempo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
+                                .addGap(35, 35, 35)
                                 .addComponent(jLabel1)))
+                        .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
+                                .addGap(10, 10, 10)
                                 .addComponent(tf_tamFila, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(135, 135, 135)
+                                .addGap(116, 116, 116)
                                 .addComponent(tf_qtdMaxEntSis, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
                                 .addComponent(jLabel3)
-                                .addGap(126, 126, 126)
+                                .addGap(29, 29, 29)
                                 .addComponent(jLabel7))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(tf_qtdEntFora, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2)
-                                .addComponent(tf_qtdEntDentro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(15, 15, 15)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(jLabel4))
+                                .addGap(24, 24, 24)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel6)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
+                                .addGap(59, 59, 59)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tf_qtdEntFora, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tf_qtdEntDentro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addComponent(jLabel5))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(96, 96, 96)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tf_tempoRestRec, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tf_recLivre, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(38, Short.MAX_VALUE))
+                                    .addComponent(jLabel4)
+                                    .addComponent(tf_recLivre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tf_tempoRestRec, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +276,7 @@ public class Teste1 extends javax.swing.JFrame {
                     .addComponent(tf_tempo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_tamFila, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_qtdMaxEntSis, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4))
@@ -252,11 +288,11 @@ public class Teste1 extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_qtdEntFora, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_tempoRestRec, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_proximo)
                     .addComponent(b_fim)
@@ -308,20 +344,21 @@ public class Teste1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Teste1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Simulacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Teste1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Simulacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Teste1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Simulacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Teste1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Simulacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Teste1().setVisible(true);
+                new Simulacao().setVisible(true);
             }
         });
     }

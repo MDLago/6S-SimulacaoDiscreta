@@ -5,8 +5,17 @@
  */
 package InterfaceGrafica;
 
+import FuncoesDistribuicoes.Calculo;
+import FuncoesDistribuicoes.D_Exponencial;
+import FuncoesDistribuicoes.D_Normal;
+import FuncoesDistribuicoes.D_Triangular;
+import FuncoesDistribuicoes.D_Uniforme;
+import FuncoesDistribuicoes.Distribuicoes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -14,43 +23,107 @@ import java.awt.event.ActionListener;
  */
 public class MainGUI extends javax.swing.JFrame {
 
+    
+    Calculo ts, tec;
+    int tempoMaximo;
     /**
      * Creates new form Main
      */
     public MainGUI() {
         initComponents();
+        preencherCB();
         inicializar();
         
     }
     
     public void inicializar(){
-        b_dUniforme.addActionListener(new ActionListener() {
+        b_ParTEC.addActionListener(new ActionListener() {
+            
+            
             @Override
             public void actionPerformed(ActionEvent e) {
-                new JF_Uniforme().setVisible(true);
+                String str = cb_TEC.getSelectedItem().toString();
+                Distribuicoes dis = Distribuicoes.valueOf(str.toUpperCase());
+                switch (dis){
+                    case DETERMINISTICO:
+                        JF_Deterministico jfd = new JF_Deterministico();
+                        jfd.setVisible(true);
+                        ts = jfd.calc;
+                    case EXPONENCIAL:
+                        JF_Exponencial jfe = new JF_Exponencial();
+                        jfe.setVisible(true);
+                        tec = jfe.calc;
+                        break;
+                    case NORMAL:
+                        JF_Normal jfn = new JF_Normal();
+                        jfn.setVisible(true);
+                        tec = jfn.calc;
+                        break;
+                    case TRIANGULAR:
+                        JF_Triangular jft = new JF_Triangular();
+                        jft.setVisible(true);
+                        tec = jft.calc;
+                        break;
+                    case UNIFORME:;
+                        JF_Uniforme jfu = new JF_Uniforme();
+                        jfu.setVisible(true);
+                        tec = jfu.calc;
+                }
             }
         });
         
-        b_dTriangular.addActionListener(new ActionListener() {
+        b_ParTS.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new JF_Triangular().setVisible(true);
+                String str = cb_TS.getSelectedItem().toString();
+                Distribuicoes dis = Distribuicoes.valueOf(str.toUpperCase());
+                switch (dis){
+                    case DETERMINISTICO: 
+                        JF_Deterministico jfd = new JF_Deterministico();
+                        jfd.setVisible(true);
+                        ts = jfd.calc;
+                    case EXPONENCIAL:
+                        JF_Exponencial jfe = new JF_Exponencial();
+                        jfe.setVisible(true);
+                        ts = jfe.calc;
+                        break;
+                    case NORMAL:
+                        JF_Normal jfn = new JF_Normal();
+                        jfn.setVisible(true);
+                        ts = jfn.calc;
+                        break;
+                    case TRIANGULAR:
+                        JF_Triangular jft = new JF_Triangular();
+                        jft.setVisible(true);
+                        ts = jft.calc;
+                        break;
+                    case UNIFORME:;
+                        JF_Uniforme jfu = new JF_Uniforme();
+                        jfu.setVisible(true);
+                        ts = jfu.calc;
+                }
             }
         });
         
-        b_dExponencial.addActionListener(new ActionListener() {
+        b_Simular.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new JF_Exponencial().setVisible(true);
+                
+                tempoMaximo = Integer.valueOf(tf_TempoMaximo.getText());
+                
+                Simulacao simulacao = new Simulacao(ts, tec, tempoMaximo);
+                simulacao.setVisible(true);
             }
         });
-        
-        b_dNormal.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new JF_Normal().setVisible(true);
-            }
-        });
+         
+    }
+    
+    public void preencherCB(){
+       cb_TEC.setModel(new DefaultComboBoxModel<>(Distribuicoes.values()));
+       cb_TS.setModel(new DefaultComboBoxModel<>(Distribuicoes.values()));
+       
+       cb_TEC.setSelectedIndex(1);
+       cb_TS.setSelectedItem(1);
     }
 
     /**
@@ -62,61 +135,146 @@ public class MainGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 60), new java.awt.Dimension(10, 60), new java.awt.Dimension(10, 60));
+        jLabel1 = new javax.swing.JLabel();
+        tf_TempoMaximo = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        b_dUniforme = new javax.swing.JButton();
-        b_dTriangular = new javax.swing.JButton();
-        b_dExponencial = new javax.swing.JButton();
-        b_dNormal = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        cb_TEC = new javax.swing.JComboBox();
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
+        b_ParTEC = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        cb_TS = new javax.swing.JComboBox();
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 32767));
+        b_ParTS = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        b_Simular = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Principal");
         setLocation(new java.awt.Point(250, 250));
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(496, 159));
         setMinimumSize(new java.awt.Dimension(496, 159));
-        setPreferredSize(new java.awt.Dimension(496, 159));
         setResizable(false);
         setSize(new java.awt.Dimension(614, 193));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel2.setMaximumSize(new java.awt.Dimension(480, 40));
+        jPanel2.setMinimumSize(new java.awt.Dimension(480, 40));
+        jPanel2.setPreferredSize(new java.awt.Dimension(480, 40));
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel2.add(filler3);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Tempo Maximo: ");
+        jPanel2.add(jLabel1);
+
+        tf_TempoMaximo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tf_TempoMaximo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_TempoMaximo.setMaximumSize(new java.awt.Dimension(100, 30));
+        tf_TempoMaximo.setMinimumSize(new java.awt.Dimension(100, 30));
+        tf_TempoMaximo.setPreferredSize(new java.awt.Dimension(100, 30));
+        jPanel2.add(tf_TempoMaximo);
+
+        getContentPane().add(jPanel2);
 
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.setMaximumSize(new java.awt.Dimension(450, 40));
+        jPanel1.setMinimumSize(new java.awt.Dimension(450, 40));
+        jPanel1.setName(""); // NOI18N
+        jPanel1.setPreferredSize(new java.awt.Dimension(450, 40));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        b_dUniforme.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        b_dUniforme.setText("Uniforme");
-        b_dUniforme.setMargin(null);
-        b_dUniforme.setMaximumSize(new java.awt.Dimension(120, 40));
-        b_dUniforme.setMinimumSize(new java.awt.Dimension(120, 40));
-        b_dUniforme.setPreferredSize(new java.awt.Dimension(120, 40));
-        jPanel1.add(b_dUniforme);
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("TEC");
+        jLabel2.setMaximumSize(new java.awt.Dimension(40, 30));
+        jLabel2.setMinimumSize(new java.awt.Dimension(40, 30));
+        jLabel2.setPreferredSize(new java.awt.Dimension(40, 30));
+        jPanel1.add(jLabel2);
 
-        b_dTriangular.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        b_dTriangular.setText("Triangular");
-        b_dTriangular.setMargin(null);
-        b_dTriangular.setMaximumSize(new java.awt.Dimension(120, 40));
-        b_dTriangular.setMinimumSize(new java.awt.Dimension(120, 40));
-        b_dTriangular.setPreferredSize(new java.awt.Dimension(120, 40));
-        jPanel1.add(b_dTriangular);
+        cb_TEC.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cb_TEC.setMaximumSize(new java.awt.Dimension(250, 40));
+        cb_TEC.setMinimumSize(new java.awt.Dimension(250, 40));
+        cb_TEC.setPreferredSize(new java.awt.Dimension(250, 40));
+        cb_TEC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_TECActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cb_TEC);
+        jPanel1.add(filler4);
 
-        b_dExponencial.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        b_dExponencial.setText("Exponencial");
-        b_dExponencial.setMargin(null);
-        b_dExponencial.setMaximumSize(new java.awt.Dimension(120, 40));
-        b_dExponencial.setMinimumSize(new java.awt.Dimension(120, 40));
-        b_dExponencial.setPreferredSize(new java.awt.Dimension(120, 40));
-        jPanel1.add(b_dExponencial);
+        b_ParTEC.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        b_ParTEC.setText("Parametros");
+        jPanel1.add(b_ParTEC);
 
-        b_dNormal.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        b_dNormal.setText("Normal");
-        b_dNormal.setMargin(null);
-        b_dNormal.setMaximumSize(new java.awt.Dimension(120, 40));
-        b_dNormal.setMinimumSize(new java.awt.Dimension(120, 40));
-        b_dNormal.setPreferredSize(new java.awt.Dimension(120, 40));
-        jPanel1.add(b_dNormal);
+        getContentPane().add(jPanel1);
+        jPanel1.getAccessibleContext().setAccessibleName("");
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel4.setMaximumSize(new java.awt.Dimension(450, 40));
+        jPanel4.setMinimumSize(new java.awt.Dimension(450, 40));
+        jPanel4.setPreferredSize(new java.awt.Dimension(450, 40));
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("TS");
+        jLabel3.setMaximumSize(new java.awt.Dimension(40, 30));
+        jLabel3.setMinimumSize(new java.awt.Dimension(40, 30));
+        jLabel3.setPreferredSize(new java.awt.Dimension(40, 30));
+        jPanel4.add(jLabel3);
+
+        cb_TS.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cb_TS.setMaximumSize(new java.awt.Dimension(250, 40));
+        cb_TS.setMinimumSize(new java.awt.Dimension(250, 40));
+        cb_TS.setPreferredSize(new java.awt.Dimension(250, 40));
+        jPanel4.add(cb_TS);
+        jPanel4.add(filler6);
+
+        b_ParTS.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        b_ParTS.setText("Parametros");
+        jPanel4.add(b_ParTS);
+
+        getContentPane().add(jPanel4);
+
+        jPanel5.setMaximumSize(new java.awt.Dimension(480, 45));
+        jPanel5.setMinimumSize(new java.awt.Dimension(480, 45));
+        jPanel5.setPreferredSize(new java.awt.Dimension(480, 45));
+
+        b_Simular.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        b_Simular.setText("Simular");
+        b_Simular.setMaximumSize(new java.awt.Dimension(100, 40));
+        b_Simular.setMinimumSize(new java.awt.Dimension(100, 40));
+        b_Simular.setPreferredSize(new java.awt.Dimension(100, 40));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(326, Short.MAX_VALUE)
+                .addComponent(b_Simular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(b_Simular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        getContentPane().add(jPanel5);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cb_TECActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_TECActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_TECActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,10 +313,23 @@ public class MainGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton b_dExponencial;
-    private javax.swing.JButton b_dNormal;
-    private javax.swing.JButton b_dTriangular;
-    private javax.swing.JButton b_dUniforme;
+    private javax.swing.JButton b_ParTEC;
+    private javax.swing.JButton b_ParTS;
+    private javax.swing.JButton b_Simular;
+    private javax.swing.JComboBox cb_TEC;
+    private javax.swing.JComboBox cb_TS;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
+    private javax.swing.Box.Filler filler6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JTextField tf_TempoMaximo;
     // End of variables declaration//GEN-END:variables
+
+    
 }

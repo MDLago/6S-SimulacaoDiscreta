@@ -1,6 +1,6 @@
 
 import InterfaceGrafica.MainGUI;
-import InterfaceGrafica.Teste1;
+import InterfaceGrafica.Simulacao;
 import javax.swing.UIManager;
 
 /*
@@ -28,8 +28,8 @@ public class Principal {
             // Caso o nimbus esteja indisponível, alterar o LAF aqui.
         }
         
-        //MainGUI gui = new MainGUI();
-        Teste1 gui = new Teste1();
+        MainGUI gui = new MainGUI();
+        //Simulacao gui = new Simulacao();
         gui.setVisible(true);
     }
 }

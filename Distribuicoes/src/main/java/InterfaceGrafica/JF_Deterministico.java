@@ -14,16 +14,16 @@ import java.awt.event.ActionListener;
  *
  * @author marco
  */
-public class JF_Exponencial extends javax.swing.JFrame {
+public class JF_Deterministico extends javax.swing.JFrame {
+    
     Calculo calc;
     /**
      * Creates new form JF_Uniforme
      */
-    public JF_Exponencial() {
+    public JF_Deterministico() {
         
         initComponents();
         inicializar();
-        valorOffset.setEditable(false);
 
         
     }
@@ -40,33 +40,19 @@ public class JF_Exponencial extends javax.swing.JFrame {
         b_OK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double media = Utils.valorJTF_Double(valorMedia);
-                double offset = 0;
+                double valor = Utils.valorJTF_Double(tf_valor);
                 
+                calc = new Calculo(valor, 0, 0, 0) {
+                    @Override
+                    public double gerarNumero() {
+                        return a;
+                    }
+                };
                 
-                double offsetON = 0;
-                if(Utils.valorJCB(cbDefinirOffset)){
-                    offsetON = 1;
-                    offset = Utils.valorJTF_Double(valorOffset);
-                }
-                
-                calc = D_Exponencial.getD_Exponencial(media, offset,offsetON,0);
                 setVisible(false);
-                
             }
         });
-        
-        cbDefinirOffset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(Utils.valorJCB(cbDefinirOffset)){
-                    valorOffset.setEditable(true);
-                }else{
-                    valorOffset.setEditable(false);
-                }
-            }
-        });
-        
+     
     }
 
     /**
@@ -81,10 +67,7 @@ public class JF_Exponencial extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        valorMedia = new javax.swing.JTextField();
-        valorOffset = new javax.swing.JTextField();
-        cbDefinirOffset = new javax.swing.JCheckBox();
+        tf_valor = new javax.swing.JTextField();
         b_OK = new javax.swing.JButton();
         b_Cancel = new javax.swing.JButton();
 
@@ -101,24 +84,12 @@ public class JF_Exponencial extends javax.swing.JFrame {
         jLabel1.setText("Parametros");
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel2.setText("Média:");
+        jLabel2.setText("Valor:");
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel3.setText("Offset (x0): ");
-
-        valorMedia.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        valorMedia.setMinimumSize(new java.awt.Dimension(100, 20));
-        valorMedia.setName(""); // NOI18N
-        valorMedia.setPreferredSize(new java.awt.Dimension(100, 20));
-
-        valorOffset.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        valorOffset.setMaximumSize(new java.awt.Dimension(100, 20));
-        valorOffset.setMinimumSize(new java.awt.Dimension(100, 20));
-        valorOffset.setName(""); // NOI18N
-        valorOffset.setPreferredSize(new java.awt.Dimension(100, 20));
-
-        cbDefinirOffset.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        cbDefinirOffset.setText("Definir Offset?");
+        tf_valor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        tf_valor.setMinimumSize(new java.awt.Dimension(100, 20));
+        tf_valor.setName(""); // NOI18N
+        tf_valor.setPreferredSize(new java.awt.Dimension(100, 20));
 
         b_OK.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         b_OK.setText("OK");
@@ -142,17 +113,10 @@ public class JF_Exponencial extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(valorOffset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbDefinirOffset))
-                            .addComponent(valorMedia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addGap(69, 69, 69)
+                        .addComponent(tf_valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(122, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(b_OK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,13 +132,8 @@ public class JF_Exponencial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(valorMedia, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(valorOffset, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbDefinirOffset))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addComponent(tf_valor, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_OK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(b_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -203,14 +162,18 @@ public class JF_Exponencial extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JF_Exponencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JF_Deterministico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JF_Exponencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JF_Deterministico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JF_Exponencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JF_Deterministico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JF_Exponencial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JF_Deterministico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -219,7 +182,7 @@ public class JF_Exponencial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JF_Exponencial().setVisible(true);
+                new JF_Deterministico().setVisible(true);
             }
         });
     }
@@ -227,12 +190,9 @@ public class JF_Exponencial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_Cancel;
     private javax.swing.JButton b_OK;
-    private javax.swing.JCheckBox cbDefinirOffset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField valorMedia;
-    private javax.swing.JTextField valorOffset;
+    private javax.swing.JTextField tf_valor;
     // End of variables declaration//GEN-END:variables
 }
