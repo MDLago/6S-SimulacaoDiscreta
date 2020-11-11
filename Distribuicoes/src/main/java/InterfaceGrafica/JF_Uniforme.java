@@ -7,16 +7,8 @@ package InterfaceGrafica;
 
 import FuncoesDistribuicoes.Calculo;
 import FuncoesDistribuicoes.D_Uniforme;
-import IO.Arquivo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  *

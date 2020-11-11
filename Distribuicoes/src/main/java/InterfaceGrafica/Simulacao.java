@@ -6,6 +6,7 @@
 package InterfaceGrafica;
 
 import Core.Sistema;
+import Estatisticas.DadosRelatorio;
 import FuncoesDistribuicoes.Calculo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -109,7 +110,16 @@ public class Simulacao extends javax.swing.JFrame {
     }
     
     public void telaFim(){
-        JOptionPane.showMessageDialog(rootPane, "Tempo limite alcançado, reinicie a simulação");
+        int i;
+        DadosRelatorio dados = new DadosRelatorio();
+        i = JOptionPane.showConfirmDialog(rootPane, "Simulação encerrada, deseja abrir o relário?");
+        
+        if(i == 0){
+            Relatorio rel = new Relatorio(dados);
+            rel.setVisible(true);
+        }else{
+            
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.

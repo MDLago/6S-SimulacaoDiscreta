@@ -6,56 +6,78 @@
 
 package Estatisticas;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  *
  * @author marco
  */
 public class DadosRelatorio {
     
-    private int contadorEntidade;
-    
-    private final List filaEntidade;
-    private final List tempoEntidadeFila;
-    private final List tempoEntidadeSistema;
-    private final List maximoEntidadeSimultaneaSistema;
+    private int numeroMedioEntidadesFila;
+    private int taxaMediaOcupacaoServidor;
+    private int tempoMedioEntidadeFila;
+    private int tempoMedioSistema;
+    private int totalEntidadesSistema;
+    private int qtdEntidadesSimultaneasSistema;
+    private int tempoExecucao;
 
-    public DadosRelatorio(){
-        filaEntidade = new LinkedList();
-        tempoEntidadeFila = new LinkedList();
-        tempoEntidadeSistema = new LinkedList();
-        maximoEntidadeSimultaneaSistema = new LinkedList();
-        contadorEntidade = 0;
+    public int getNumeroMedioEntidadesFila() {
+        return numeroMedioEntidadesFila;
+    }
+
+    public int getTaxaMediaOcupacaoServidor() {
+        return taxaMediaOcupacaoServidor;
+    }
+
+    public int getTempoMedioEntidadeFila() {
+        return tempoMedioEntidadeFila;
+    }
+
+    public int getTempoMedioSistema() {
+        return tempoMedioSistema;
+    }
+
+    public int getTotalEntidadesSistema() {
+        return totalEntidadesSistema;
+    }
+
+    public int getQtdEntidadesSimultaneasSistema() {
+        return qtdEntidadesSimultaneasSistema;
+    }
+
+    public int getTempoExecucao() {
+        return tempoExecucao;
+    }
+
+    public void setNumeroMedioEntidadesFila(int numeroMedioEntidadesFila) {
+        this.numeroMedioEntidadesFila = numeroMedioEntidadesFila;
+    }
+
+    public void setTaxaMediaOcupacaoServidor(int taxaMediaOcupacaoServidor) {
+        this.taxaMediaOcupacaoServidor = taxaMediaOcupacaoServidor;
+    }
+
+    public void setTempoMedioEntidadeFila(int tempoMedioEntidadeFila) {
+        this.tempoMedioEntidadeFila = tempoMedioEntidadeFila;
+    }
+
+    public void setTempoMedioSistema(int tempoMedioSistema) {
+        this.tempoMedioSistema = tempoMedioSistema;
+    }
+
+    public void setTotalEntidadesSistema(int totalEntidadesSistema) {
+        this.totalEntidadesSistema = totalEntidadesSistema;
+    }
+
+    public void setQtdEntidadesSimultaneasSistema(int qtdEntidadesSimultaneasSistema) {
+        this.qtdEntidadesSimultaneasSistema = qtdEntidadesSimultaneasSistema;
+    }
+
+    public void setTempoExecucao(int tempoExecucao) {
+        this.tempoExecucao = tempoExecucao;
     }
     
-    public void addEntidade(int valor){
-        filaEntidade.add(valor);
-    }
     
     
-    public void addTempoEntidadeFila(int valor){
-        tempoEntidadeFila.add(valor);
-    }
     
-    public void addTempoEntidadeSistema(int valor){
-        tempoEntidadeSistema.add(valor);
-    }
     
-    public void addMaximoEntidadeSimultaneaSistema(int valor){
-        maximoEntidadeSimultaneaSistema.add(valor);
-    }
-    
-    public void addContatorEntidade(){
-        contadorEntidade++;
-    }
-    
-    public void addDados (int filaEntidade, int tempoEntidadeFila, int tempoEntidadeSistema, int maximoEntidadeSimultaneaSistema){
-        addEntidade(filaEntidade);
-        addTempoEntidadeFila(tempoEntidadeFila);
-        addTempoEntidadeSistema(tempoEntidadeSistema);
-        addMaximoEntidadeSimultaneaSistema(maximoEntidadeSimultaneaSistema);
-        addContatorEntidade();
-    }
 }
