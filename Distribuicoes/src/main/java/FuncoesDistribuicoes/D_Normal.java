@@ -3,21 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Core;
+package FuncoesDistribuicoes;
 
 /**
  *
  * @author marco
  */
-public class D_Normal implements Calculo{
-    GNA gna;
+public class D_Normal extends Calculo{    
     
-    public D_Normal(){
-        gna = new GNA();
+    
+    
+    public static D_Normal getD_Normal(double a, double b, double c, double d) {
+        return new D_Normal(a, b, c, d);
     }
-    
-    public static D_Normal getD_Normal() {
-        return new D_Normal();
+
+    public D_Normal(double a, double b, double c, double d) {
+        super(a, b, c, d);
     }
     
     private double calcularZ(){
@@ -34,7 +35,7 @@ public class D_Normal implements Calculo{
     }
 
     @Override
-    public double gerarNumero(double a, double b, double c, double d) {
+    public double gerarNumero() {
         return gerarNumero(a, b);
     }
 }

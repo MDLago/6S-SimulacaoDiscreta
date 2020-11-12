@@ -1,5 +1,6 @@
 
 import InterfaceGrafica.MainGUI;
+import InterfaceGrafica.Simulacao;
 import javax.swing.UIManager;
 
 /*
@@ -28,6 +29,7 @@ public class Principal {
         }
         
         MainGUI gui = new MainGUI();
+        //Simulacao gui = new Simulacao();
         gui.setVisible(true);
     }
 }
