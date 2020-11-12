@@ -97,6 +97,7 @@ public class Sistema {
     private void atenderProximaEntidade(){
         if(fila.isEmpty()){
             rec.setLivre();
+            rec.atendimento();
             qtdTempoRecursoLivre.add(1);
         }else{
             do{

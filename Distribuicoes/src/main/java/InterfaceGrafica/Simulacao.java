@@ -121,7 +121,7 @@ public class Simulacao extends javax.swing.JFrame {
         dados.setTempoMedioSistema(sistema.getTempoMedioEntidadeSistema());
         dados.setTotalEntidadesSistema(sistema.getTotalEntidadesSistema());
             
-        i = JOptionPane.showConfirmDialog(rootPane, "Simulação encerrada, deseja abrir o relário?");
+        i = JOptionPane.showConfirmDialog(rootPane, "Simulação encerrada, deseja abrir o relatório?");
         
         if(i == 0){
             Relatorio rel = new Relatorio(dados);
