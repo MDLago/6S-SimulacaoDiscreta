@@ -22,9 +22,10 @@ public class Sistema {
     
     private Calculo cTEC;
     private Calculo cTS;
-    private int tec;
+    private int tec, ultimoTec = 0;
     private int ts;
-    private int tempoUltimaEntidadeCriada = 0;
+    //private int tempoUltimaEntidadeCriada = 0;
+    private int proximaEntidade = 1;
     
     private LinkedList<Entidade> fila = new LinkedList<>();
     private Entidade ent;
@@ -45,22 +46,29 @@ public class Sistema {
     
     ///////////////////////////////////////
     private void adicionarEntidade(){
+        do{
+            setTEC(cTEC.gerarNumero());
+        }while (valorMenorIgualZero(tec));
+        
+        ultimoTec = tec;
         ent = new Entidade(tec);
-        setValores(cTS.gerarNumero(), cTEC.gerarNumero());
         addEntidadeEntraram();
         fila.add(ent);
     }
     
     public void criarEntidade(){
-        if(tempo == tempoUltimaEntidadeCriada + tec){
+        if(proximaEntidade == 1){
             adicionarEntidade();
-            tempoUltimaEntidadeCriada = tempo;
+            
+            proximaEntidade = ultimoTec;
+        }else{
+            proximaEntidade--;
         }
     }
     ////////////////////////////////////
     
     private void addTempoFila(){
-        if(fila.isEmpty()){
+        if(!fila.isEmpty()){
             for (Entidade entidade : fila) {
                 entidade.ficouNaFila();
             }
@@ -91,17 +99,25 @@ public class Sistema {
             rec.setLivre();
             qtdTempoRecursoLivre.add(1);
         }else{
-            Entidade ent = fila.getFirst();
-            qtdTempoFila.add(ent.getTempoFila());
-            qtdTempoSistema.add(ent.getTempoChegada() + ent.getTempoFila() + ts);
-            fila.removeFirst();
+            do{
+                setTS(cTS.gerarNumero());
+            }while (valorMenorIgualZero(ts));
             rec.setTS(ts);
+            
+            Entidade ent = fila.getFirst();
+            
+            if(ent.getTempoFila() > 0){
+                qtdTempoFila.add(ent.getTempoFila());
+            }
+            
+            qtdTempoSistema.add(ent.getTempoFila() + rec.getTS());
+            fila.removeFirst();
         }
         
      }
     
     private void atendimentoEntidadeAtual(){
-        if(rec.isRecursoLivre() || rec.getContador() == 0){
+        if(rec.isRecursoLivre() || rec.getContador() == 1){
             atenderProximaEntidade();
         }else{
             rec.atendimento();
@@ -146,7 +162,57 @@ public class Sistema {
     public int getQtdMaximoEntidadeDentro() {
         return qtdMaximoEntidadeDentro;
     }
+    
+    public double getQtdMediaEntidadesFila(){
+        double res = 0;
+        for (Integer integer : qtdFila) {
+            res += integer;
+        }
+        res = res/qtdFila.size();
+        
+        return res;
+    }
 
+    public double getTaxaOcupacaoServidor(){
+        double res = 0;
+        
+        for (Integer integer : qtdTempoRecursoLivre) {
+            res += integer;
+        }
+        
+        res = 1 - (res/tempo);
+        
+        return res;
+    }
+    
+    public double getTempoMedioEntidadeFila(){
+        double res = 0;
+        
+        for (Integer integer : qtdTempoFila) {
+            res += integer;
+        }
+        
+        res = res / qtdTempoFila.size();
+        
+        return res;
+    }
+    
+    public double getTempoMedioEntidadeSistema(){
+        double res = 0;
+        
+        for (Integer integer : qtdTempoSistema) {
+            res += integer;
+        }
+        
+        res = res / qtdTempoSistema.size();
+        
+        return res;
+    }
+    
+    public int getTotalEntidadesSistema(){
+        return entidadeEntraram;
+    }
+    
     public LinkedList<Integer> getQtdFila() {
         return qtdFila;
     }
@@ -185,5 +251,9 @@ public class Sistema {
     
     private void addEntidadeSairam(){
         entidadeSairam++;
+    }
+    
+    private boolean valorMenorIgualZero(int valor){
+        return valor <= 0;
     }
 }

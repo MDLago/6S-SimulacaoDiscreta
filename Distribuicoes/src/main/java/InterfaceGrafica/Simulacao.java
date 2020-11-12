@@ -112,10 +112,20 @@ public class Simulacao extends javax.swing.JFrame {
     public void telaFim(){
         int i;
         DadosRelatorio dados = new DadosRelatorio();
+        
+        dados.setNumeroMedioEntidadesFila(sistema.getQtdMediaEntidadesFila());
+        dados.setQtdEntidadesSimultaneasSistema(sistema.getQtdMaximoEntidadeDentro());
+        dados.setTaxaMediaOcupacaoServidor(sistema.getTaxaOcupacaoServidor());
+        dados.setTempoExecucao(sistema.getTempo());
+        dados.setTempoMedioEntidadeFila(sistema.getTempoMedioEntidadeFila());
+        dados.setTempoMedioSistema(sistema.getTempoMedioEntidadeSistema());
+        dados.setTotalEntidadesSistema(sistema.getTotalEntidadesSistema());
+            
         i = JOptionPane.showConfirmDialog(rootPane, "Simulação encerrada, deseja abrir o relário?");
         
         if(i == 0){
             Relatorio rel = new Relatorio(dados);
+
             rel.setVisible(true);
         }else{
             

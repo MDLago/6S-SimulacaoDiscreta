@@ -12,27 +12,27 @@ package Estatisticas;
  */
 public class DadosRelatorio {
     
-    private int numeroMedioEntidadesFila;
-    private int taxaMediaOcupacaoServidor;
-    private int tempoMedioEntidadeFila;
-    private int tempoMedioSistema;
+    private double numeroMedioEntidadesFila;
+    private double taxaMediaOcupacaoServidor;
+    private double tempoMedioEntidadeFila;
+    private double tempoMedioSistema;
     private int totalEntidadesSistema;
     private int qtdEntidadesSimultaneasSistema;
     private int tempoExecucao;
 
-    public int getNumeroMedioEntidadesFila() {
+    public double getNumeroMedioEntidadesFila() {
         return numeroMedioEntidadesFila;
     }
 
-    public int getTaxaMediaOcupacaoServidor() {
+    public double getTaxaMediaOcupacaoServidor() {
         return taxaMediaOcupacaoServidor;
     }
 
-    public int getTempoMedioEntidadeFila() {
+    public double getTempoMedioEntidadeFila() {
         return tempoMedioEntidadeFila;
     }
 
-    public int getTempoMedioSistema() {
+    public double getTempoMedioSistema() {
         return tempoMedioSistema;
     }
 
@@ -48,19 +48,19 @@ public class DadosRelatorio {
         return tempoExecucao;
     }
 
-    public void setNumeroMedioEntidadesFila(int numeroMedioEntidadesFila) {
+    public void setNumeroMedioEntidadesFila(double numeroMedioEntidadesFila) {
         this.numeroMedioEntidadesFila = numeroMedioEntidadesFila;
     }
 
-    public void setTaxaMediaOcupacaoServidor(int taxaMediaOcupacaoServidor) {
+    public void setTaxaMediaOcupacaoServidor(double taxaMediaOcupacaoServidor) {
         this.taxaMediaOcupacaoServidor = taxaMediaOcupacaoServidor;
     }
 
-    public void setTempoMedioEntidadeFila(int tempoMedioEntidadeFila) {
+    public void setTempoMedioEntidadeFila(double tempoMedioEntidadeFila) {
         this.tempoMedioEntidadeFila = tempoMedioEntidadeFila;
     }
 
-    public void setTempoMedioSistema(int tempoMedioSistema) {
+    public void setTempoMedioSistema(double tempoMedioSistema) {
         this.tempoMedioSistema = tempoMedioSistema;
     }
 

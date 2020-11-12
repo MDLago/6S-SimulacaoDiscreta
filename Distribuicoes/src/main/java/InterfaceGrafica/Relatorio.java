@@ -24,6 +24,20 @@ public class Relatorio extends javax.swing.JFrame {
 
     public Relatorio(DadosRelatorio dados) {
         initComponents();
+        
+        preencherCampos(dados);
+        
+        
+    }
+    
+    private void preencherCampos(DadosRelatorio dados){
+        f_NumMediaFila.setText(String.valueOf(dados.getNumeroMedioEntidadesFila()));
+        f_QtdSimultaneaSistema.setText(String.valueOf(dados.getQtdEntidadesSimultaneasSistema()));
+        f_TempMedioSistema.setText(String.valueOf(dados.getTempoMedioSistema()));
+        f_TempoExecucao.setText(String.valueOf(dados.getTempoExecucao()));
+        f_TotalEntidades.setText(String.valueOf(dados.getTotalEntidadesSistema()));
+        f_taxaOcupacao.setText(String.valueOf(dados.getTaxaMediaOcupacaoServidor()*100)+" %");
+        f_tempoMediaFila.setText(String.valueOf(dados.getTempoMedioEntidadeFila()));
     }
 
     /**
@@ -51,8 +65,8 @@ public class Relatorio extends javax.swing.JFrame {
         f_TempoExecucao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(500, 300));
-        setMinimumSize(new java.awt.Dimension(500, 300));
+        setMaximumSize(new java.awt.Dimension(750, 429));
+        setMinimumSize(new java.awt.Dimension(750, 429));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -110,7 +124,7 @@ public class Relatorio extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(f_taxaOcupacao)
-                            .addComponent(f_NumMediaFila, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)))
+                            .addComponent(f_NumMediaFila, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)

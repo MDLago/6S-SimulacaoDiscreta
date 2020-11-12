@@ -56,7 +56,7 @@ public class Recurso {
     }
     
     public void atendimento(){
-        if (contador == 1){
+        if (contador == 2){
             terminouAtendimento = true;
         }
         
